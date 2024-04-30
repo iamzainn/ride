@@ -1,14 +1,18 @@
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from "next/link"
+export default async function  Home (){
+  const { getUser,isAuthenticated } = getKindeServerSession();
 
-import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
-
-
-export default async function Home() {
-  const {getUser,isAuthenticated} = getKindeServerSession();
-  const user = await getUser();
   return (
     <>
-    
-    {await isAuthenticated() && JSON.stringify(user)}
+    <main className="main">
+      <div className="maintext text-2xl font-extrabold p-5">
+        Use Our Ride
+      </div>
+      {await isAuthenticated() && <div className="text-xl font-bold p-5">
+        <Link href="/ReqRide">Request Ride</Link>
+      </div>}
+    </main>
     </>
-      );
-}
+  )
+} 
