@@ -1,5 +1,6 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
+import RideContextProvider from "@/contex/rideContext";
 
 export default async function ReqRideLayout({
     children,
@@ -15,9 +16,11 @@ export default async function ReqRideLayout({
     }
     
     return (
-        <section className="req-ride-layout">
+      <RideContextProvider>
+       <section className="req-ride-layout">
             {children}
         </section>
+      </RideContextProvider> 
     );
   }
 
