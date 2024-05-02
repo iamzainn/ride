@@ -1,6 +1,9 @@
+// export const dynamic = "force-dynamic";
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import RideContextProvider from "@/contex/rideContext";
+import LoadMap from "@/components/loadMap";
 
 export default async function ReqRideLayout({
     children,
@@ -17,9 +20,11 @@ export default async function ReqRideLayout({
     
     return (
       <RideContextProvider>
-       <section className="req-ride-layout">
-            {children}
-        </section>
+     <LoadMap>
+     <section className="req-ride-layout">
+          {children}
+      </section>
+     </LoadMap>
       </RideContextProvider> 
     );
   }
