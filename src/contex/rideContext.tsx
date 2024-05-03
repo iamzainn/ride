@@ -37,6 +37,6 @@ export default function RideContextProvider({children}:{children:React.ReactNode
 }
 
 
-export const getRideContext = ()=>{
+export const useRideContext = ()=>{
     return useContext(RideContext);
 }

@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react'
 import { DirectionsRenderer, GoogleMap, MarkerF, OverlayViewF} from '@react-google-maps/api';
-import { getRideContext } from '@/contex/rideContext';
-import { error } from 'console';
+import { useRideContext } from '@/contex/rideContext';
+
 
 const containerStyle = {
   width: '100%',
@@ -11,7 +11,7 @@ const containerStyle = {
 
 
 function Map() {
-   const {source,destnation} = getRideContext(); 
+   const {source,destnation} = useRideContext(); 
    const [center,setCenter] = useState({lat:-3.755,lng:-38.523});
    const [routePoints,setRoutePoints] = useState <google.maps.DirectionsResult | undefined>(undefined);
    
