@@ -1,9 +1,9 @@
 'use client';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import { getRideContext } from '@/contex/rideContext';
+import { useRideContext } from '@/contex/rideContext';
 
 const GoogleInput = ({name}:{name:"pickup"|"drop"})=>{
-     const {setSource,setDestination} = getRideContext();
+     const {setSource,setDestination} = useRideContext();
 
     const getLongitude_getLatitude = async (place:any)=>{
          const placeID=(place.value.place_id);
