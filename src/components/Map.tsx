@@ -1,7 +1,8 @@
 'use client';
 import React, { useState } from 'react'
-import { GoogleMap, MarkerF, OverlayViewF} from '@react-google-maps/api';
+import { DirectionsRenderer, GoogleMap, MarkerF, OverlayViewF} from '@react-google-maps/api';
 import { getRideContext } from '@/contex/rideContext';
+import { error } from 'console';
 
 const containerStyle = {
   width: '100%',
@@ -12,13 +13,15 @@ const containerStyle = {
 function Map() {
    const {source,destnation} = getRideContext(); 
    const [center,setCenter] = useState({lat:-3.755,lng:-38.523});
+   const [routePoints,setRoutePoints] = useState <google.maps.DirectionsResult | undefined>(undefined);
+   
 
 
  
   const [map, setMap] = React.useState({} as any);
 
   const onLoad = React.useCallback(function callback(map:any) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+  
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
 
@@ -32,24 +35,42 @@ function Map() {
 
 
   React.useEffect(()=>{
-    if(source && map){
-      // map.panTo({
-      //   lat:source.lat,
-      //   lng:source.lng
-      // })
+    if(source.name && map){
       setCenter({lat:source.lat,lng:source.lng})
+    }
+    if(source.name && destnation.name){
+      routeDirection();
     }
   },[source])
 
   React.useEffect(()=>{
-    if(destnation && map){
-      // map.panTo({
-      //   lat:destnation.lat,
-      //   lng:destnation.lng
-      // })
+    if(destnation.name && map){
       setCenter({lat:destnation.lat,lng:destnation.lng})
     }
+
+    if(source.name && destnation.name){
+      routeDirection();
+    }
   },[destnation])
+
+
+  const routeDirection = ()=>{
+   
+   const service =  new google.maps.DirectionsService();
+   service.route({
+    origin:{lng:source.lng,lat:source.lat},
+    destination:{lng:destnation.lng,lat:destnation.lat},
+    travelMode:google.maps.TravelMode.DRIVING
+   },(result,status)=>{
+    if(status=== google.maps.DirectionsStatus.OK){
+     
+      setRoutePoints(result!);
+    }
+    else{
+      console.error("error in routeDirection",status);
+    }
+   })
+  }
 
 
   return  (
@@ -64,14 +85,20 @@ function Map() {
         }
       >
       {source ?<MarkerF position={{lat:source.lat,lng:source.lng}}>
-        {/* <OverlayViewF
-        position={{lat:source.lat,lng:source.lng}}
-        mapPaneName={OverlayViewF.OVERLAY_MOUSE_TARGET}
-        >
-         <p className='text-1xl border-3 botder-grey p-2'>{source.name}</p>    
-        </OverlayViewF> */}
       </MarkerF> :null}
       {destnation ?<MarkerF position={{lat:destnation.lat,lng:destnation.lng}}></MarkerF>:null}
+
+      <DirectionsRenderer 
+      directions={routePoints}
+      options={{
+        polylineOptions:{
+          strokeColor:"red"
+
+        },
+        suppressMarkers:true
+      }
+    }
+      ></DirectionsRenderer>
       </GoogleMap>
   )
 }
