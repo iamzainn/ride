@@ -14,9 +14,6 @@ function Map() {
    const {source,destnation} = useRideContext(); 
    const [center,setCenter] = useState({lat:-3.755,lng:-38.523});
    const [routePoints,setRoutePoints] = useState <google.maps.DirectionsResult | undefined>(undefined);
-   
-
-
  
   const [map, setMap] = React.useState({} as any);
 
@@ -55,8 +52,9 @@ function Map() {
 
 
   const routeDirection = ()=>{
-   
    const service =  new google.maps.DirectionsService();
+   
+   
    service.route({
     origin:{lng:source.lng,lat:source.lat},
     destination:{lng:destnation.lng,lat:destnation.lat},
@@ -67,10 +65,12 @@ function Map() {
       setRoutePoints(result!);
     }
     else{
-      console.error("error in routeDirection",status);
+      console.error("error in route Direction",status);
     }
    })
   }
+
+  
 
 
   return  (
