@@ -11,8 +11,6 @@ import React from 'react';
 
 
 
-
-
 function Payment() {
   const {user,isLoading } = useKindeBrowserClient();
   const searchParam=useSearchParams();
