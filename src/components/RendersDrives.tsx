@@ -38,7 +38,7 @@ export default function Renders({children}:{children:React.ReactNode}){
         <div className='mt-6'>
         <Button onClick={distCalculate} disabled={!source.name || !destnation.name}
         
-        className={`disabled:cursor-not-allowed opacity-10 enabled:opacity-100 w-full `} size={"sm"}>Request</Button>
+        className={`disabled:cursor-not-allowed opacity-10 enabled:opacity-100 w-full `} size={"sm"}>Search</Button>
         {distance && 
         <div className='cars'>
             <p className='font-bold mb-2 mt-2' >Distance :  {distance.toFixed(2)} miles</p>
