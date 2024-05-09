@@ -11,7 +11,7 @@ export async function POST(request:any) {
 
     try{
         const paymentIntent=await stripe.paymentIntents.create({
-            amount:Number(amount),
+            amount:Number(parseFloat(amount).toFixed(2)),
             currency:'USD'
         })
 
