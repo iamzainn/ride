@@ -20,7 +20,7 @@ function CheckoutForm({amount}:{amount:number}) {
         const res=await fetch('/api/create-intent',{
             method:'POST',
             body:JSON.stringify({
-                amount:amount * 100
+                amount:amount
             })
         });
 

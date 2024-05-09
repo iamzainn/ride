@@ -19,7 +19,7 @@ function Payment() {
   const stripePromise=loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
   const options={
     mode:'payment',
-    amount:Math.round(parseInt(amount)),
+    amount:Math.round(parseInt(amount)*100),
     currency:'usd'
   }
   
@@ -31,7 +31,7 @@ function Payment() {
 
   return (
     <Elements stripe={stripePromise} options={options as StripeElementsOptions}>
-        <CheckoutForm amount={parseFloat((amount).toString())} />
+        <CheckoutForm amount={parseInt(amount)} />
     </Elements>
   )
 }
