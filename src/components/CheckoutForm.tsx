@@ -31,7 +31,7 @@ function CheckoutForm({amount}:{amount:number}) {
           clientSecret:secretKey,
           elements,
           confirmParams:{
-            return_url:"http://localhost:3000/success"
+            return_url:"https://ride-pi.vercel.app/payment/success"
           }  
         })
         if(error){
